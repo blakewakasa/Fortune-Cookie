@@ -1,10 +1,10 @@
 from twilio.rest import Client
 from datetime import datetime
-from random import randrange
-from collections import defaultdict
-import time
 
-global NUMBERS = {}
+from collections import defaultdict
+
+import random
+NUMBERS = {}
 
 # Your Account Sid and Auth Token from twilio.com/user/account
 
@@ -21,16 +21,30 @@ message = client.messages.create(
 
 '''
 
-def pick_random_time(begin:int, end:int) ->None:
-    hour = randrange(begin,end+1)
-    while datetime.now().hour() != hour:
-        sleep(10)
+def pick_random_time(begin:int, end:int, dayStart:str) ->None:
+    if days_to_ints(dayStart) == datetime.now().weekday():
+        hour = random.randrange(begin,end+1)
+        while datetime.now().hour() != hour:
+            sleep(10)
 
     #run Luke's code
+def days_to_ints(day:str)->int:
+    if day == "Monday":
+        return 0
+    elif day =="Tuesday":
+        return 1
+    elif day =="Wednesday":
+        return 2
+    elif day =="Thursday":
+        return 3
+    elif day =="Friday":
+        return 4
+    elif day =="Saturday":
+        return 5
+    elif day == "Sunday":
+        return 6
     
 def store_numbers(number: str) ->None:
     if number not in NUMBERS.keys():
         NUMBERS[number] = set()
-     
-     
     
