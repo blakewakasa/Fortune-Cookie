@@ -47,12 +47,21 @@ p1, p2, p4{
 <p3><font size="1">*standard text messaging rates may apply</font></p3>
 <br/>
 <br/>
+
 <p4>Please enter a number *do not include any special characters</p4>
-<form action="verify.html">
-  Phone Number:<br>
-  <input type="text" name="Phone Number" value="+1">
-  <br>
-  <input type="submit" value="Send">
-</form> 
+<form method="POST" action = "/send">
+    <div class="form-group">
+        <input type="text" name="number"> 
+    </div>
+    <input class = "btn btn-primary" type= "submit" value="submit">
+</form>
+
+<!--<form action="verify.html">-->
+<!--  Phone Number:<br>-->
+<!--  <input type="text" name="Phone Number" value="+1">-->
+<!--  <br>-->
+<!--  <input type="submit" value="Send">-->
+<!--</form> -->
+
 
 </html>
