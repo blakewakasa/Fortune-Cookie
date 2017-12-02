@@ -1,10 +1,12 @@
 from twilio.rest import Client
 from datetime import datetime
-
+from flask import flask
 from collections import defaultdict
 
 import random
+app = Flask(__name__)
 NUMBERS = {}
+#DAYS_TO_INTS = {"Monday":0, "Tuesday":1, "Wednesday":2, "Thursday":3,"Friday":4, "Saturday":5, "Sunday":6}
 
 # Your Account Sid and Auth Token from twilio.com/user/account
 
@@ -22,27 +24,17 @@ message = client.messages.create(
 '''
 
 def pick_random_time(begin:int, end:int, dayStart:str) ->None:
-    if days_to_ints(dayStart) == datetime.now().weekday():
-        hour = random.randrange(begin,end+1)
-        while datetime.now().hour() != hour:
-            sleep(10)
+    DAYS_TO_INTS = {"Monday":0, "Tuesday":1, "Wednesday":2,
+                    "Thursday":3,"Friday":4, "Saturday":5, "Sunday":6} #set of days that converts it to ints for datetime
+    while True:
+        if DAYS_TO_INTS[dayStart] == datetime.now().weekday():
+            hour = random.randrange(begin,end+1)
+            while datetime.now().hour() != hour:
+                sleep(30)
+
 
     #run Luke's code
-def days_to_ints(day:str)->int:
-    if day == "Monday":
-        return 0
-    elif day =="Tuesday":
-        return 1
-    elif day =="Wednesday":
-        return 2
-    elif day =="Thursday":
-        return 3
-    elif day =="Friday":
-        return 4
-    elif day =="Saturday":
-        return 5
-    elif day == "Sunday":
-        return 6
+
     
 def store_numbers(number: str) ->None:
     if number not in NUMBERS.keys():
