@@ -1,11 +1,14 @@
 from twilio.rest import Client
 from datetime import datetime
-from flask import flask
+from flask import Flask, render_template
 from collections import defaultdict
-
+import json
+import urllib.parse
+import urllib.request
 import random
-app = Flask(__name__)
+
 NUMBERS = {}
+
 #DAYS_TO_INTS = {"Monday":0, "Tuesday":1, "Wednesday":2, "Thursday":3,"Friday":4, "Saturday":5, "Sunday":6}
 
 # Your Account Sid and Auth Token from twilio.com/user/account
@@ -22,6 +25,12 @@ message = client.messages.create(
 
 
 '''
+VERIFY_KEY = "0dCWkbZaBsyYf6Dq1uDxfhZfiAlZ2t9i"
+def build_verification_url():
+    response = urllib.request.request("https://api.authy.com/protected/json/phones/verification/start?api_key="+VERIFY_KEY)
+    json_text = response.read().decode(encoding = 'utf-8')
+    return json.loads(json_text)
+
 
 def pick_random_time(begin:int, end:int, dayStart:str) ->None:
     DAYS_TO_INTS = {"Monday":0, "Tuesday":1, "Wednesday":2,
@@ -39,4 +48,9 @@ def pick_random_time(begin:int, end:int, dayStart:str) ->None:
 def store_numbers(number: str) ->None:
     if number not in NUMBERS.keys():
         NUMBERS[number] = set()
-    
+
+
+
+
+if __name__ == "__main__":
+    build_verification_url()
