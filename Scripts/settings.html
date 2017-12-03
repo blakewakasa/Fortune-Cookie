@@ -22,8 +22,14 @@
     <hr />
     
     <p></p>Enter a timeframe you would like to recieve motivational messages
-    <form action="/action_page.php">
-    Timefame: <input type="text" name="fname" placeholder="ex: 08am-10pm"><br> 
+    Timefame: <input type="text" name="fname" placeholder="ex: 08am-10pm"><br>
+    
+    <form method="POST" action = "/done">
+    <div class="form-group">
+        <input type="text" name="time"> 
+    </div>
+    <input class = "btn btn-primary" type= "submit" value="submit">
+    </form>
     
     <p>Enter a day you would like to start reciving messages<br>
      <select>
