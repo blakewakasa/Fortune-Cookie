@@ -5,6 +5,12 @@ from collections import defaultdict
 import time
 from flask import Flask, render_template, request
 
+
+PHONE_NUMBER = ''
+VERIFICATION = ''
+TIME = ''
+DAY = ''
+
 app = Flask(__name__)
 @app.route('/')
 def homepage():
@@ -13,16 +19,30 @@ def homepage():
 @app.route('/send', methods=['GET', 'POST'])
 def parse_number():
     number = request.form["number"]
-    print(number)
+    PHONE_NUMBER = number
    
     return render_template('verify.html')
 
-@app.route("/submit", methods=['GET', 'POST'])
+@app.route("/timeframe", methods=['GET', 'POST'])
 def parse_code():
     code = request.form["code"]
-    print(code)
-    return render_template('settings.html')
-    
+    VERIFICATION = code
+    return render_template('timeframe.html')
+
+@app.route("/day", methods=['GET', 'POST'])
+def parse_time():
+    TIME = request.form["time"]
+    print(TIME)
+    return render_template('day.html')
+
+@app.route("/done", methods=['GET', 'POST'])
+def parse_day():
+    DAY = request.form["day"]
+    print(DAY)
+    return render_template('done.html')
+
+
+
 NUMBERS = {}
 
 KEY = 'AC14ae6ec84d5319ffbddba8458e574c37'
@@ -47,15 +67,16 @@ QUOTES = {"Try to be a rainbow in someone's cloud. - Maya Angelou",
 def send_message(phone: str):
     message = pick_message(phone)
     client = Client(KEY, AUTH_TOKEN)
+    print(phone)
     message = client.messages.create(
-        phone,
+        "+" + phone,
         body=message,
         from_="+14243053286")
     
 def pick_message(phone: str) -> str:
     if NUMBERS[phone] == QUOTES:
         NUMBERS[phone] = set()
-    message = random.choice(QUOTES.difference(NUMBERS[phone]))
+    message = random.choice(list(QUOTES.difference(NUMBERS[phone])))
     NUMBERS[phone].add(message)
     return message
 
@@ -65,3 +86,5 @@ def store_numbers(number: str) ->None:
 
 if __name__ == '__main__':
     app.run()
+    store_numbers(PHONE_NUMBER)
+    send_message(PHONE_NUMBER)
