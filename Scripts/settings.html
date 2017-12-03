@@ -22,17 +22,16 @@
     <hr />
     
     <p></p>Enter a timeframe you would like to recieve motivational messages
-    Timefame: <input type="text" name="fname" placeholder="ex: 08am-10pm"><br>
-    
+
     <form method="POST" action = "/done">
     <div class="form-group">
-        <input type="text" name="time"> 
+        <input type="text" name="time" placeholder="ex: 08am-10pm"> 
     </div>
     <input class = "btn btn-primary" type= "submit" value="submit">
     </form>
     
     <p>Enter a day you would like to start reciving messages<br>
-     <select>
+     <select name="day">
   <option value="monday">Monday</option>
   <option value="tuesday">Tuesday</option>
   <option value="wednesday">Wednesday</option>
@@ -45,7 +44,7 @@
     
     
     <p>Select a language<br>
-    <select>
+    <select, name="language">
   <option value="english">English</option>
     </select>
     </form>
