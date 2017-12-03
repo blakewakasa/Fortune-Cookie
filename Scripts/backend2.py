@@ -27,7 +27,9 @@ message = client.messages.create(
 '''
 VERIFY_KEY = "0dCWkbZaBsyYf6Dq1uDxfhZfiAlZ2t9i"
 def build_verification_url():
-    response = urllib.request.request("https://api.authy.com/protected/json/phones/verification/start?api_key="+VERIFY_KEY)
+    "https://api.authy.com/protected/json/phones/verification/check?api_key=XXX…&phone_number=111-111-111&country_code=1&verification_code=1234'"
+    response = urllib.request.urlopen("https://api.authy.com/protected/json/phones/verification/check?api_key="+VERIFY_KEY+
+                                      "&phone_number=310-908-8913&country_code=1&verification_code=1234")
     json_text = response.read().decode(encoding = 'utf-8')
     return json.loads(json_text)
 
@@ -43,7 +45,11 @@ def pick_random_time(begin:int, end:int, dayStart:str) ->None:
 
 
     #run Luke's code
-
+def build_random_verification()->str:
+    random_verification = ""
+    for i in range(4):
+        random_verification+=str(random.randrange(0,10))
+    return random_verification
     
 def store_numbers(number: str) ->None:
     if number not in NUMBERS.keys():
